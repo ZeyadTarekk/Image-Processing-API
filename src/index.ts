@@ -4,8 +4,7 @@ import router from "./routes";
 import mainPath from "../util/path";
 const port = 3000;
 const app = express();
-console.log(path.join(mainPath, "assets"));
-app.use("/assets", express.static(path.join(__dirname, "..", "assets")));
+app.use("/assets", express.static(path.join(mainPath, "assets")));
 app.use("/api", router);
 
 app.listen(port, () => {
