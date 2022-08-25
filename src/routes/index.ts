@@ -5,10 +5,20 @@ import resize from "../util/resize";
 import mainPath from "../../util/path";
 const fs = require("fs");
 router.get("/images", async (req, res, next: Function) => {
-
   // Check if there is any missing paramters
   if (!req.query.width || !req.query.height || !req.query.filename) {
     res.send("Missing Paramter! Enter all the three parameters");
+    return;
+  }
+
+  if (isNaN(parseInt(req.query.width)) && isNaN(parseInt(req.query.height))) {
+    res.send("Invalid width and height");
+    return;
+  } else if (isNaN(parseInt(req.query.width))) {
+    res.send("Invalid width");
+    return;
+  } else if (isNaN(parseInt(req.query.height))) {
+    res.send("Invalid height");
     return;
   }
 
