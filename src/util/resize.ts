@@ -37,6 +37,7 @@ const resize = async (width: Number, height: Number, filename: String) => {
         );
     }
   } catch (err) {
+    console.log("Throwing error");
     throw new Error("Invalid Image");
   }
 };

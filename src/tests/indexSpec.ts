@@ -1,7 +1,16 @@
 const supertest = require("supertest");
 import app from "../index";
-
+import resize from "../util/resize";
 const request = supertest(app);
+
+describe("Testing Resize function", () => {
+  it("Test invalid Image", async () => {
+    expect(async function () {
+      await resize(200, 200, "sdawd");
+    }).toThrowError("Invalid Image");
+  });
+});
+
 describe("Test endpoint responses", () => {
   it("Test get / page", async () => {
     const response = await request.get("/");
