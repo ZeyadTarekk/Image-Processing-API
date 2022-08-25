@@ -15,11 +15,9 @@ const validateImage = (folder: string, imagePath: string): boolean => {
     // Check if the entered image doesn't exist
     if (
       !fs.existsSync(path.join(mainPath, "assets", folder, `${imagePath}.jpg`))
-    ) 
+    )
       return false;
-     else 
-      return true;
-    
+    else return true;
   }
 };
 

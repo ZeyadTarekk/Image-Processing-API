@@ -15,7 +15,6 @@ router.get(
       res.send("Missing Paramter! Enter all the three parameters");
       return;
     }
-
     if (!validateNumber(req.query.width) && !validateNumber(req.query.height)) {
       res.send("Invalid width and height");
       return;
