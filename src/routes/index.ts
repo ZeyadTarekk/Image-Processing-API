@@ -5,11 +5,13 @@ import resize from "../util/resize";
 import mainPath from "../../util/path";
 const fs = require("fs");
 router.get("/images", async (req, res, next: Function) => {
+  // Check if there is any missing paramters
   if (!req.query.width || !req.query.height || !req.query.filename) {
     res.send("Missing Paramter! Enter all the three parameters");
     return;
   }
 
+  // Check if the entered image doesn't exist
   if (
     !fs.existsSync(
       path.join(mainPath, "assets", "full", `${req.query.filename}.jpg`)
