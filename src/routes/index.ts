@@ -19,11 +19,22 @@ router.get("/images", async (req, res, next: Function) => {
     return;
   }
 
-  await resize(
-    Number(req.query.width),
-    Number(req.query.height),
-    req.query.filename
-  );
+  // Check if the image isn't generated before so generate it
+  if (
+    !fs.existsSync(
+      path.join(
+        mainPath,
+        "assets",
+        "thumb",
+        `${req.query.filename}${req.query.width}x${req.query.height}.jpg`
+      )
+    )
+  )
+    await resize(
+      Number(req.query.width),
+      Number(req.query.height),
+      req.query.filename
+    );
 
   res.send(
     `<!DOCTYPE html>
