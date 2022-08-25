@@ -27,7 +27,6 @@ router.get(
     }
 
     if (!validateImage("full", req.query.filename)) {
-      console.log("Can't find");
       res.send("Invalid Image try another valid image");
       return;
     }
@@ -38,6 +37,7 @@ router.get(
         `${req.query.filename}${req.query.width}x${req.query.height}`
       )
     ) {
+      console.log("Generating new");
       await resize(
         parseInt(req.query.width),
         parseInt(req.query.height),

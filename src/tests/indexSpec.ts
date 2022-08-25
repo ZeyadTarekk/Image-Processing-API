@@ -1,13 +1,31 @@
 const supertest = require("supertest");
 import app from "../index";
 import resize from "../util/resize";
+import validateImage from "../util/validateImage";
+import validateNumber from "../util/validateNumber";
 const request = supertest(app);
 
-describe("Testing Resize function", () => {
-  it("Test invalid Image", async () => {
-    expect(async function () {
-      await resize(200, 200, "sdawd");
-    }).toThrowError("Invalid Image");
+describe("Testing image validation function", () => {
+  it("testing invalid image", () => {
+    expect(validateImage("full", "wrongImage")).toBe(false);
+  });
+  it("testing invalid image 2", () => {
+    expect(validateImage("thumb", "wrongImage")).toBe(false);
+  });
+});
+
+describe("Testing number validation function", () => {
+  it("testing invalid number", () => {
+    expect(validateNumber("a")).toBe(false);
+  });
+  it("testing invalid number 2", () => {
+    expect(validateNumber("500f")).toBe(false);
+  });
+  it("testing valid number", () => {
+    expect(validateNumber("500")).toBe(true);
+  });
+  it("testing valid number 2", () => {
+    expect(validateNumber("230")).toBe(true);
   });
 });
 
@@ -19,20 +37,5 @@ describe("Test endpoint responses", () => {
   it("Test get /api page", async () => {
     const response = await request.get("/api");
     expect(response.status).toBe(404);
-  });
-  it("Test wrong image name", async (done: DoneFn) => {
-    const response = await request.get(
-      "/api/images?filename=wrong&width=540&height=600"
-    );
-
-    expect(response.body).toBe("Invalid Image try another valid image");
-  });
-
-  it("Test missing paramters", async (done: DoneFn) => {
-    const response = await request.get("/api/images?filename=fjord&width=540");
-
-    expect(response.body).toBe(
-      "Missing Paramter! Enter all the three parameters"
-    );
   });
 });
