@@ -3,12 +3,12 @@ export {};
 declare global {
   namespace Express {
     interface Request {
-      query: Object;
+      query: any;
     }
     interface Response {
       send: Function;
     }
-    interface Object {
+    interface ReqQuery {
       width: string;
       height: string;
       filename: string;
