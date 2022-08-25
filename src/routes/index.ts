@@ -5,7 +5,6 @@ import resize from "../util/resize";
 import mainPath from "../../util/path";
 const fs = require("fs");
 router.get("/images", async (req, res, next: Function) => {
-  console.log(mainPath);
 
   // Check if there is any missing paramters
   if (!req.query.width || !req.query.height || !req.query.filename) {
@@ -21,9 +20,6 @@ router.get("/images", async (req, res, next: Function) => {
         path.join(mainPath, "..", "assets", "full", `${req.query.filename}.jpg`)
       )
     ) {
-      console.log(
-        path.join(mainPath, "..", "assets", "full", `${req.query.filename}.jpg`)
-      );
       res.send("Invalid Image try another valid image");
       return;
     }
