@@ -4,7 +4,7 @@
     "lib": ["ES6"],
     "outDir": "./build",
     "strict": true,
-    "noImplicitAny": true
+    "noImplicitAny": false
   },
   "exclude": ["node_modules"]
 }

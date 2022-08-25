@@ -1,6 +1,12 @@
-const val = "test";
+const express = require("express");
 
-const val2 = "test2";
+import router from "./routes";
 
-let val3;
-val3 = 3;
+const port = 3000;
+const app = express();
+
+app.use("/api", router);
+
+app.listen(port, () => {
+  console.log(`Server started at localhost:${port}`);
+});
