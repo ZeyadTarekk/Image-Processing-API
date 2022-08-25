@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["ES6"],
+    "outDir": "./build",
+    "strict": true,
+    "noImplicitAny": true
+  },
+  "exclude": ["node_modules"]
+}
