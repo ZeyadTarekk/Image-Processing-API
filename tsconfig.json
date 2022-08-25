@@ -4,7 +4,8 @@
     "lib": ["ES6"],
     "outDir": "./build",
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "exclude": ["node_modules", "./build", "spec"]
 }
