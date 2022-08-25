@@ -6,5 +6,5 @@
     "strict": true,
     "noImplicitAny": false
   },
-  "exclude": ["node_modules","./build","spec"]
+  "exclude": ["node_modules", "./build", "spec"]
 }

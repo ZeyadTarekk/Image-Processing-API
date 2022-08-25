@@ -4,7 +4,7 @@ const path = require("path");
 import resize from "../util/resize";
 import mainPath from "../../util/path";
 const fs = require("fs");
-router.get("/images", async (req, res, next) => {
+router.get("/images", async (req, res, next: Function) => {
   if (!req.query.width || !req.query.height || !req.query.filename) {
     res.send("Missing Paramter! Enter all the three parameters");
     return;
@@ -32,7 +32,7 @@ router.get("/images", async (req, res, next) => {
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>${req.query.filename}</title>
     </head>
     <body>
     <img src='/assets/thumb/${req.query.filename}${req.query.width}x${req.query.height}.jpg' alt='img'>

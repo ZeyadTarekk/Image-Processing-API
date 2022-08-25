@@ -12,7 +12,7 @@ const resize = async (width: Number, height: Number, filename: String) => {
           "thumb",
           `${filename}${width}x${height}.jpg`
         ),
-        (err, info) => {
+        (err: Error, info: unknown) => {
           if (err) {
             throw new Error("Invalid Image");
           }
