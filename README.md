@@ -104,4 +104,4 @@ npm run test
 
 ## License <a name = "license"></a>
 
-> This software is licensed under MIT License, See [License](https://github.com/ZeyadTarekk/Image-Processing-API/blob/main/LICENSE) for more information.
+> This software is licensed under MIT License, See [License](https://github.com/ZeyadTarekk/Image-Processing-API/blob/main/LICENSE) for more information ©ZeyadTarekk.
