@@ -17,7 +17,6 @@ describe("Test endpoint responses", () => {
     );
 
     expect(response.body).toBe("Invalid Image try another valid image");
-    done();
   });
 
   it("Test missing paramters", async (done: DoneFn) => {
@@ -26,6 +25,5 @@ describe("Test endpoint responses", () => {
     expect(response.body).toBe(
       "Missing Paramter! Enter all the three parameters"
     );
-    done();
   });
 });
