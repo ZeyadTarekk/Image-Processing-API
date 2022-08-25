@@ -5,38 +5,76 @@ import resize from "../util/resize";
 import mainPath from "../../util/path";
 const fs = require("fs");
 router.get("/images", async (req, res, next: Function) => {
+  console.log(mainPath);
+
   // Check if there is any missing paramters
   if (!req.query.width || !req.query.height || !req.query.filename) {
     res.send("Missing Paramter! Enter all the three parameters");
     return;
   }
 
-  // Check if the entered image doesn't exist
-  if (
-    !fs.existsSync(
-      path.join(mainPath, "assets", "full", `${req.query.filename}.jpg`)
-    )
-  ) {
-    res.send("Invalid Image try another valid image");
-    return;
+  // Check if the build version is running
+  if (mainPath.endsWith("build")) {
+    // Check if the entered image doesn't exist
+    if (
+      !fs.existsSync(
+        path.join(mainPath, "..", "assets", "full", `${req.query.filename}.jpg`)
+      )
+    ) {
+      console.log(
+        path.join(mainPath, "..", "assets", "full", `${req.query.filename}.jpg`)
+      );
+      res.send("Invalid Image try another valid image");
+      return;
+    }
+  } else {
+    // Check if the entered image doesn't exist
+    if (
+      !fs.existsSync(
+        path.join(mainPath, "assets", "full", `${req.query.filename}.jpg`)
+      )
+    ) {
+      res.send("Invalid Image try another valid image");
+      return;
+    }
   }
 
-  // Check if the image isn't generated before so generate it
-  if (
-    !fs.existsSync(
-      path.join(
-        mainPath,
-        "assets",
-        "thumb",
-        `${req.query.filename}${req.query.width}x${req.query.height}.jpg`
+  if (mainPath.endsWith("build")) {
+    // Check if the image isn't generated before so generate it
+    if (
+      !fs.existsSync(
+        path.join(
+          mainPath,
+          "..",
+          "assets",
+          "thumb",
+          `${req.query.filename}${req.query.width}x${req.query.height}.jpg`
+        )
       )
     )
-  )
-    await resize(
-      Number(req.query.width),
-      Number(req.query.height),
-      req.query.filename
-    );
+      await resize(
+        Number(req.query.width),
+        Number(req.query.height),
+        req.query.filename
+      );
+  } else {
+    // Check if the image isn't generated before so generate it
+    if (
+      !fs.existsSync(
+        path.join(
+          mainPath,
+          "assets",
+          "thumb",
+          `${req.query.filename}${req.query.width}x${req.query.height}.jpg`
+        )
+      )
+    )
+      await resize(
+        Number(req.query.width),
+        Number(req.query.height),
+        req.query.filename
+      );
+  }
 
   res.send(
     `<!DOCTYPE html>
