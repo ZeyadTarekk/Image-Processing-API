@@ -1,7 +1,11 @@
 const sharp = require("sharp");
 const path = require("path");
 import mainPath from "../../util/path";
-const resize = async (width: Number, height: Number, filename: String) => {
+const resize = async (
+  width: number | boolean,
+  height: number | boolean,
+  filename: String
+) => {
   try {
     if (mainPath.endsWith("build")) {
       return await sharp(
@@ -37,8 +41,7 @@ const resize = async (width: Number, height: Number, filename: String) => {
         );
     }
   } catch (err) {
-    console.log("Throwing error");
-    throw new Error("Invalid Image");
+    console.log(err);
   }
 };
 

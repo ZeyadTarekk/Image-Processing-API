@@ -2,6 +2,7 @@ const exp = require("express");
 const router = exp.Router();
 const path = require("path");
 import resize from "../util/resize";
+import validateNumber from "../util/validation";
 import mainPath from "../../util/path";
 const fs = require("fs");
 router.get(
@@ -17,16 +18,13 @@ router.get(
       return;
     }
 
-    if (
-      isNaN(parseInt(req.query.width as string)) &&
-      isNaN(parseInt(req.query.height))
-    ) {
+    if (!validateNumber(req.query.width) && !validateNumber(req.query.height)) {
       res.send("Invalid width and height");
       return;
-    } else if (isNaN(parseInt(req.query.width))) {
+    } else if (!validateNumber(req.query.width)) {
       res.send("Invalid width");
       return;
-    } else if (isNaN(parseInt(req.query.height))) {
+    } else if (!validateNumber(req.query.height)) {
       res.send("Invalid height");
       return;
     }
@@ -74,8 +72,8 @@ router.get(
         )
       )
         await resize(
-          Number(req.query.width),
-          Number(req.query.height),
+          parseInt(req.query.width),
+          parseInt(req.query.height),
           req.query.filename
         );
     } else {
