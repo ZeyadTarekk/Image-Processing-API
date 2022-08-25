@@ -1,9 +1,9 @@
 const sharp = require("sharp");
 const path = require("path");
 import mainPath from "../../util/path";
-const resize = (width: Number, height: Number, filename: String) => {
+const resize = async (width: Number, height: Number, filename: String) => {
   try {
-    sharp(path.join(mainPath, "assets", "full", `${filename}.jpg`))
+    return await sharp(path.join(mainPath, "assets", "full", `${filename}.jpg`))
       .resize(width, height)
       .toFile(
         path.join(
@@ -13,12 +13,14 @@ const resize = (width: Number, height: Number, filename: String) => {
           `${filename}${width}x${height}.jpg`
         ),
         (err, info) => {
-          // console.log(err);
-          // console.log(info);
+          if (err) {
+            throw new Error("Invalid Image");
+          }
         }
       );
   } catch (err) {
-    console.log(err);
+    console.log("Invalid Message");
+    throw new Error("Invalid Image");
   }
 };
 
