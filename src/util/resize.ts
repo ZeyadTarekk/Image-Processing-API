@@ -1,11 +1,7 @@
 const sharp = require("sharp");
 const path = require("path");
 import mainPath from "../../util/path";
-const resize = async (
-  width: number | boolean,
-  height: number | boolean,
-  filename: String
-) => {
+const resize = async (width: number, height: number, filename: String) => {
   try {
     if (mainPath.endsWith("build")) {
       return await sharp(
