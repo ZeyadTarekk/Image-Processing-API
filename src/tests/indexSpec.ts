@@ -1,6 +1,9 @@
 const supertest = require("supertest");
+import path = require("path");
+import mainPath from "../../util/path";
 import app from "../index";
 import resize from "../util/resize";
+const fs = require("fs");
 import validateImage from "../util/validateImage";
 import validateNumber from "../util/validateNumber";
 const request = supertest(app);
@@ -37,5 +40,27 @@ describe("Test endpoint responses", () => {
   it("Test get /api page", async () => {
     const response = await request.get("/api");
     expect(response.status).toBe(404);
+  });
+});
+
+describe("Test Resize Function", () => {
+  it("Test resize fjord with existing size", async () => {
+    if (validateImage("thumb", "fjord300x600"))
+      fs.unlinkSync(path.join(mainPath, "assets", "thumb", "fjord300x600.jpg"));
+    await request.get("/api/images?filename=fjord&width=300&height=600");
+    expect(validateImage("thumb", "fjord300x600")).toBe(true);
+  });
+  it("Test resize fjord with new size", async () => {
+    if (validateImage("thumb", "fjord600x600"))
+      fs.unlinkSync(path.join(mainPath, "assets", "thumb", "fjord600x600.jpg"));
+    await request.get("/api/images?filename=fjord&width=600&height=600");
+    expect(validateImage("thumb", "fjord600x600")).toBe(true);
+    fs.unlinkSync(path.join(mainPath, "assets", "thumb", "fjord600x600.jpg"));
+  });
+  it("Test resize fjord with missing parameters", async () => {
+    if (validateImage("thumb", "fjord600x625"))
+      fs.unlinkSync(path.join(mainPath, "assets", "thumb", "fjord600x600.jpg"));
+    await request.get("/api/images?filename=fjord&width=600");
+    expect(validateImage("thumb", "fjord600x625")).toBe(false);
   });
 });
